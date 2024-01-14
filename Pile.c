@@ -72,6 +72,18 @@ int Pop(Stack *stack)
 }
 
 
+// Peek the top value of the stack
+int Peek(Stack *stack)
+{
+    int value = -1; // Initialize the value to -1
+    if (!IsEmpty(stack)) // Check if the stack is not empty
+    {
+        value = stack->data[stack->top]; // Get the value at the top index
+    }
+    return value; // Return the value
+}
+
+
 
 
 
