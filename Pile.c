@@ -85,5 +85,13 @@ int Peek(Stack *stack)
 
 
 
+// Check if the stack is empty
+bool IsEmpty(Stack *stack)
+{
+    return (stack->top == -1); // Return true if the top index is -1
+}
+
+
+
 
 
