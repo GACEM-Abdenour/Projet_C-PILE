@@ -92,6 +92,13 @@ bool IsEmpty(Stack *stack)
 }
 
 
+// Check if the stack is full
+bool IsFull(Stack *stack)
+{
+    return (stack->top == MAX_ELEMENTS - 1); // Return true if the top index is the maximum index
+}
+
+
 
 
 
