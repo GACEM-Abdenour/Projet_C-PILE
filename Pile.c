@@ -41,3 +41,22 @@ void InitStack(Stack *stack)
     stack->highlightMax = false; // Set the highlightMax flag to false
     stack->highlightMin = false; // Set the highlightMin flag to false
 }
+
+
+
+
+
+// Push a value to the stack
+void Push(Stack *stack, int value)
+{
+    if (!IsFull(stack)) // Check if the stack is not full
+    {
+        stack->top++; // Increment the top index
+        stack->data[stack->top] = value; // Store the value at the top index
+    }
+}
+
+
+
+
+
