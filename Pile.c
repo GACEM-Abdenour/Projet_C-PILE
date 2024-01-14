@@ -118,6 +118,25 @@ int GetMax(Stack *stack)
 }
 
 
+// Get the minimum value in the stack
+int GetMin(Stack *stack)
+{
+    int min = -1; // Initialize the minimum value to -1
+    if (!IsEmpty(stack)) // Check if the stack is not empty
+    {
+        min = stack->data[0]; // Set the minimum value to the first element
+        for (int i = 1; i <= stack->top; i++) // Loop through the rest of the elements
+        {
+            if (stack->data[i] < min) // If the current element is less than the minimum value
+            {
+                min = stack->data[i]; // Update the minimum value
+            }
+        }
+    }
+    return min; // Return the minimum value
+}
+
+
 
 
 
