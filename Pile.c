@@ -30,3 +30,14 @@ bool IsEmpty(Stack *stack); // Check if the stack is empty
 bool IsFull(Stack *stack); // Check if the stack is full
 int GetMax(Stack *stack); // Get the maximum value in the stack
 int GetMin(Stack *stack); // Get the minimum value in the stack
+
+
+
+
+// Initialize the stack
+void InitStack(Stack *stack)
+{
+    stack->top = -1; // Set the top index to -1
+    stack->highlightMax = false; // Set the highlightMax flag to false
+    stack->highlightMin = false; // Set the highlightMin flag to false
+}
