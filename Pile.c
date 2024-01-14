@@ -99,6 +99,25 @@ bool IsFull(Stack *stack)
 }
 
 
+// Get the maximum value in the stack
+int GetMax(Stack *stack)
+{
+    int max = -1; // Initialize the maximum value to -1
+    if (!IsEmpty(stack)) // Check if the stack is not empty
+    {
+        max = stack->data[0]; // Set the maximum value to the first element
+        for (int i = 1; i <= stack->top; i++) // Loop through the rest of the elements
+        {
+            if (stack->data[i] > max) // If the current element is greater than the maximum value
+            {
+                max = stack->data[i]; // Update the maximum value
+            }
+        }
+    }
+    return max; // Return the maximum value
+}
+
+
 
 
 
