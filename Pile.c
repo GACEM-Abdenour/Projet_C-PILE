@@ -3,3 +3,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+
+
+
+
+
+// Define a struct for the stack
+typedef struct Stack {
+    int data[MAX_ELEMENTS]; // Array to store the data of the elements
+    int top; // Index of the top element
+    bool highlightMax; // Flag to indicate whether to highlight the maximum element
+    bool highlightMin; // Flag to indicate whether to highlight the minimum element
+    char inputValue[16]; // User input value as a string
+    bool inputActive; // Flag to indicate if the user is entering a value
+} Stack;
