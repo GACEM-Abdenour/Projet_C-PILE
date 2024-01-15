@@ -202,6 +202,48 @@ int GetMin(Stack *stack)
 }
 
 
+// Draw the stack on the screen
+void DrawStack(Stack *stack)
+{
+    // Calculate the x coordinate of the stack
+    int x = (SCREEN_WIDTH - ELEMENT_WIDTH) / 2;
+
+    // Loop through the elements in the stack
+    for (int i = 0; i <= stack->top; i++)
+    {
+        // Calculate the y coordinate of the current element
+        int y =  SCREEN_HEIGHT - (i + 1) * (ELEMENT_HEIGHT + ELEMENT_GAP)  ;
+
+        // Get the value of the current element
+        int value = stack->data[i];
+
+        // Check if the current element is the maximum or the minimum element
+        bool isMax = (value == GetMax(stack)) && stack->highlightMax;
+        bool isMin = (value == GetMin(stack)) && stack->highlightMin;
+
+        // Choose the color of the current element based on the highlighting
+        Color color = ELEMENT_COLOR;
+        if (isMax) color = MAX_COLOR;
+        if (isMin) color = MIN_COLOR;
+
+        // Draw the current element as a rectangle
+        DrawRectangle(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, color);
+
+        // Draw the value of the current element as a text
+        DrawText(TextFormat("%d", value), x + (ELEMENT_WIDTH - MeasureText(TextFormat("%d", value), FONT_SIZE)) / 2, y + ELEMENT_HEIGHT / 2 - 10, FONT_SIZE, TEXT_COLOR);
+
+        // Check if the mouse is over the current element
+        if (CheckCollisionPointRec(GetMousePosition(), (Rectangle){x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT}))
+        {
+            // Draw a border around the current element
+            DrawRectangleLines(x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT, TEXT_COLOR);
+        }
+    }
+}
+
+
+
+
 
 
 
