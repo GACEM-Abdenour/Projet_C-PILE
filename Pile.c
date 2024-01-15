@@ -4,8 +4,25 @@
 #include <stdbool.h>
 #include <string.h>
 
-
-
+// Define some constants
+#define SCREEN_WIDTH 1000 
+#define SCREEN_HEIGHT 700    
+#define MAX_ELEMENTS 10 
+#define ELEMENT_WIDTH 100 // Width of each element in the stack
+#define ELEMENT_HEIGHT 50 // Height of each element in the stack
+#define ELEMENT_GAP 10 // Gap between each element in the stack
+#define BUTTON_WIDTH 150 // Width of each button
+#define BUTTON_HEIGHT 50 // Height of each button
+#define BUTTON_GAP 20 // Gap between each button
+#define FONT_SIZE 20 // Font size for the text
+    
+// Define some colors
+#define BACKGROUND_COLOR BLACK // Background color
+#define ELEMENT_COLOR WHITE // Element color
+#define BUTTON_COLOR DARKGRAY // Button color
+#define TEXT_COLOR BLACK // Text color
+#define MAX_COLOR RED // Color for highlighting the maximum element and button
+#define MIN_COLOR BLUE // Color for highlighting the minimum element and button
 
 
 // Define a struct for the stack
@@ -30,8 +47,56 @@ bool IsEmpty(Stack *stack); // Check if the stack is empty
 bool IsFull(Stack *stack); // Check if the stack is full
 int GetMax(Stack *stack); // Get the maximum value in the stack
 int GetMin(Stack *stack); // Get the minimum value in the stack
+void DrawStack(Stack *stack); // Draw the stack on the screen
+void DrawButtons(Stack *stack); // Draw the buttons on the screen
+void UpdateStack(Stack *stack); // Update the stack based on user input
 
 
+// Main function
+int main(void)
+{
+
+    // Initialize the window
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Primitive Pile Visualization");
+
+    // Initialize the stack
+    Stack stack;
+    InitStack(&stack);
+
+    // testing the git 1
+    // Set the target FPS
+    SetTargetFPS(60);
+
+    // Main game loop
+    while (!WindowShouldClose()) // Detect window close button or ESC key
+    {
+        // Update the stack
+        UpdateStack(&stack);
+    
+
+        // Begin drawing
+        BeginDrawing();
+
+        // Clear the background
+        ClearBackground(BACKGROUND_COLOR);
+
+        // Draw the stack
+        DrawStack(&stack);
+
+        // Draw the buttons
+        DrawButtons(&stack);
+
+        
+
+        // End drawing
+        EndDrawing();
+    }
+
+    // Close window and OpenGL context
+    CloseWindow();
+
+    return 0;
+}
 
 
 // Initialize the stack
