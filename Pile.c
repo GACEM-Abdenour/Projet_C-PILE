@@ -242,6 +242,53 @@ void DrawStack(Stack *stack)
 }
 
 
+// Draw the buttons on the screen
+void DrawButtons(Stack *stack)
+{
+    // Calculate the x coordinate of the buttons
+    int x = (SCREEN_WIDTH - 4 * BUTTON_WIDTH - 3 * BUTTON_GAP) / 2;
+
+    // Calculate the y coordinate of the buttons
+    int y = 20;
+
+    // Draw the "Add Element" button
+    DrawRectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR);
+    DrawText(stack->top > -1 ? "Add Element" : "Create the pile", x + 10, y + 15, stack->top > -1 ? FONT_SIZE : 18, TEXT_COLOR);
+
+    // Draw the "Remove Element" button
+    if(stack->top > -1){
+    x += BUTTON_WIDTH + BUTTON_GAP;
+    DrawRectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR);
+    DrawText(stack->top == 0 ? "Delete the pile" : "Remove Element", x + 10, y + 15, 17.5, TEXT_COLOR);
+    }
+
+    // Draw the "Highlight Max" button
+    x += BUTTON_WIDTH + BUTTON_GAP; 
+    DrawRectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR);
+    DrawText(stack->highlightMax ? "Unhighlite Max" : "Highlight Max", x + 10, y + 15, 18, TEXT_COLOR);
+  
+
+    // Draw the "Highlight Min" button
+    x += BUTTON_WIDTH + BUTTON_GAP; 
+    DrawRectangle(x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BUTTON_COLOR);
+    DrawText(stack->highlightMin ? "Unhighlight Min" : "Highlight Min", x + 10, y + 15, 18, TEXT_COLOR);
+   
+    // Check if the mouse is over any button
+    for (int i = 0; i < 4; i++)
+    {
+        // Calculate the x coordinate of the current button
+        int bx = (SCREEN_WIDTH - 4 * BUTTON_WIDTH - 3 * BUTTON_GAP) / 2 + i * (BUTTON_WIDTH + BUTTON_GAP);
+
+        // Check if the mouse is over the current button
+        if (CheckCollisionPointRec(GetMousePosition(), (Rectangle){bx, y, BUTTON_WIDTH, BUTTON_HEIGHT}))
+        {
+            // Draw a border around the current button
+            DrawRectangleLines(bx, y, BUTTON_WIDTH, BUTTON_HEIGHT, TEXT_COLOR);
+        }
+    }
+}
+
+
 
 
 
