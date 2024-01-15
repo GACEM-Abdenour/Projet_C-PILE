@@ -289,6 +289,127 @@ void DrawButtons(Stack *stack)
 }
 
 
+// Update the stack based on user input
+void UpdateStack(Stack *stack)
+{
+    // Check if the left mouse button is pressed
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+    {
+        // Get the mouse position
+        Vector2 mouse = GetMousePosition();
+
+        // Calculate the x coordinate of the buttons
+        int x = (SCREEN_WIDTH - 4 * BUTTON_WIDTH - 3 * BUTTON_GAP) / 2;
+
+        // Calculate the y coordinate of the buttons
+        int y = 20;
+
+        // Check if the mouse is over the "Add Element" button
+        if (CheckCollisionPointRec(mouse, (Rectangle){x, y, BUTTON_WIDTH, BUTTON_HEIGHT}))
+        {
+            // Generate a random value between 1 and 100
+            stack->inputActive = true;
+
+        }
+
+        // Check if the mouse is over the "Remove Element" button
+        x += BUTTON_WIDTH + BUTTON_GAP;
+        if (CheckCollisionPointRec(mouse, (Rectangle){x, y, BUTTON_WIDTH, BUTTON_HEIGHT}))
+        {
+            // Pop the top value from the stack
+            Pop(stack);
+        }
+
+        // Check if the mouse is over the "Highlight Max" button
+        x += BUTTON_WIDTH + BUTTON_GAP;
+        if (CheckCollisionPointRec(mouse, (Rectangle){x, y, BUTTON_WIDTH, BUTTON_HEIGHT}))
+        {
+            // Toggle the highlightMax flag
+            stack->highlightMax = !stack->highlightMax;
+            
+            //added by meeeee
+           
+            // If the highlightMax flag is true, set the highlightMin flag to false
+        
+        }
+
+        // Check if the mouse is over the "Highlight Min" button
+        x += BUTTON_WIDTH + BUTTON_GAP;
+        if (CheckCollisionPointRec(mouse, (Rectangle){x, y, BUTTON_WIDTH, BUTTON_HEIGHT}))
+        {
+            // Toggle the highlightMin flag
+            stack->highlightMin = !stack->highlightMin;
+
+            //added by meeeeee
+           
+            // If the highlightMin flag is true, set the highlightMax flag to false
+           
+        }
+
+        // Calculate the x coordinate of the stack
+        x = (SCREEN_WIDTH - ELEMENT_WIDTH) / 2;
+
+        // Loop through the elements in the stack
+        for (int i = 0; i <= stack->top; i++)
+        {
+            // Calculate the y coordinate of the current element
+            y = SCREEN_HEIGHT - (i + 1) * (ELEMENT_HEIGHT + ELEMENT_GAP);
+
+            // Check if the mouse is over the current element
+            if (CheckCollisionPointRec(mouse, (Rectangle){x, y, ELEMENT_WIDTH, ELEMENT_HEIGHT}))
+            {
+                // Remove the current element from the stack
+                for (int j = i; j < stack->top; j++)
+                {
+                    stack->data[j] = stack->data[j + 1];
+                }
+                stack->top--;
+            }
+        }
+    }
+
+
+    if (stack->inputActive)
+    {
+        // Check if the backspace key is being held down
+        if (IsKeyDown(KEY_BACKSPACE))
+        {
+            // Remove the last digit from the inputValue string
+            int len = strlen(stack->inputValue);
+            if (len > 0)
+            {
+                stack->inputValue[len - 1] = '\0';
+            }
+        }
+        else
+        {
+            // Get the key pressed by the user
+            int key = GetKeyPressed();
+
+            if (((key >= KEY_ZERO) && (key <= KEY_NINE)) || (key == KEY_MINUS))
+            {
+                // Concatenate the entered digit to the inputValue string
+                int len = strlen(stack->inputValue);
+                if (len < 15)
+                {
+                    stack->inputValue[len] = (char)key;
+                    stack->inputValue[len + 1] = '\0';
+                }
+            }
+            else if (key == KEY_ENTER)
+            {
+                // Convert the inputValue to an integer and push it to the stack
+                int value = atoi(stack->inputValue);
+                Push(stack, value);
+
+                // Clear the inputValue and deactivate the input box
+                strcpy(stack->inputValue, "");
+                stack->inputActive = false;
+            }
+        }
+    }
+
+}
 
 
 
