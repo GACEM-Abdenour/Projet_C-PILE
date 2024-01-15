@@ -86,7 +86,12 @@ int main(void)
         // Draw the buttons
         DrawButtons(&stack);
 
-        
+        if (stack.inputActive) 
+        {
+            DrawRectangle(SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 25, 150, 50, BUTTON_COLOR);
+            DrawRectangleLines(SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 25, 150, 50, TEXT_COLOR);
+            DrawText(stack.inputValue, SCREEN_WIDTH / 2 - MeasureText(stack.inputValue, FONT_SIZE) / 2, SCREEN_HEIGHT / 2 - 10, FONT_SIZE, TEXT_COLOR);
+        }
 
         // End drawing
         EndDrawing();
